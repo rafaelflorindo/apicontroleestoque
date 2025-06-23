@@ -25,6 +25,11 @@ const Usuario = sequelize.define("Usuario", {
     permissao:{
         type:DataTypes.STRING,
         allowNull: false,
+    },
+    ativo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
 });
 

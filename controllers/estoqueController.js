@@ -1,26 +1,9 @@
-const express = require("express");
-const router = express.Router();
+/*const Estoque = require("../models/Estoque");
+const Produto = require("../models/Produto");*/
 
-const {
-    criarEstoque,
-    listarTodosEstoques,
-    listarEstoquePorId,
-    atualizarEstoque,
-    ativarEstoque,
-    inativarEstoque
-} = require("../controllers/estoqueController");
+const { Produto, Estoque } = require("../models");
 
-router.post("/create", criarEstoque);
-router.get("/listAll", listarTodosEstoques);
-router.get("/listOne/:id", listarEstoquePorId);
-router.put("/update/:id", atualizarEstoque);
-router.put("/ativar/:id", ativarEstoque);
-router.put("/inativar/:id", inativarEstoque);
-
-module.exports = router;
-
-/*
-router.post("/create/", async (req, res) => {
+async function criarEstoque(req, res) {
     try {
         const novoEstoque = await Estoque.create(req.body);
         res.status(201).json({ message: "Estoque criado com sucesso!", data: novoEstoque });
@@ -28,10 +11,9 @@ router.post("/create/", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Erro ao criar o estoque." });
     }
-});
+}
 
-// Listar todos os estoques
-router.get("/listAll/", async (req, res) => {
+async function listarTodosEstoques(req, res) {
     try {
         const estoques = await Estoque.findAll({ include: Produto });
         res.status(200).json(estoques);
@@ -39,10 +21,9 @@ router.get("/listAll/", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Erro ao buscar estoques." });
     }
-});
+}
 
-// Buscar estoque por ID
-router.get("/listOne/:id", async (req, res) => {
+async function listarEstoquePorId(req, res) {
     try {
         const id = Number(req.params.id);
         const estoque = await Estoque.findByPk(id, { include: Produto });
@@ -56,10 +37,9 @@ router.get("/listOne/:id", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Erro ao buscar o estoque." });
     }
-});
+}
 
-// Atualizar estoque
-router.put("/update/:id", async (req, res) => {
+async function atualizarEstoque(req, res) {
     try {
         const id = Number(req.params.id);
         const estoque = await Estoque.findByPk(id);
@@ -74,9 +54,9 @@ router.put("/update/:id", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Erro ao atualizar o estoque." });
     }
-});
+}
 
-router.put("/ativar/:id", async (req, res) => {
+async function ativarEstoque(req, res) {
     try {
         const id = Number(req.params.id);
         const estoque = await Estoque.findByPk(id);
@@ -88,14 +68,14 @@ router.put("/ativar/:id", async (req, res) => {
         estoque.ativo = true;
         await estoque.save();
 
-        res.status(200).json({ message: "Estoque inativado com sucesso!" });
+        res.status(200).json({ message: "Estoque ativado com sucesso!" });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Erro ao inativar estoque." });
+        res.status(500).json({ error: "Erro ao ativar estoque." });
     }
-});
+}
 
-router.put("/inativar/:id", async (req, res) => {
+async function inativarEstoque(req, res) {
     try {
         const id = Number(req.params.id);
         const estoque = await Estoque.findByPk(id);
@@ -112,7 +92,13 @@ router.put("/inativar/:id", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Erro ao inativar estoque." });
     }
-});
+}
 
-module.exports = router;
-*/
+module.exports = {
+    criarEstoque,
+    listarTodosEstoques,
+    listarEstoquePorId,
+    atualizarEstoque,
+    ativarEstoque,
+    inativarEstoque
+};
