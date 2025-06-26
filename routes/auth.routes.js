@@ -28,14 +28,16 @@ router.post("/login", async (req, res) => {
         const token = jwt.sign(
             { id: usuario.id, email: usuario.email, permissao: usuario.permissao },
             process.env.JWT_SECRET,
-            { expiresIn: "1h" }
+            { expiresIn: "7d" }
         );
         return res.status(200).json({
             token,
             message: "Usuário autenticado com sucesso",
             data: {
+                id: usuario.id,
                 nome: usuario.nome,
                 email: usuario.email,
+                ativo: usuario.ativo,
                 permissao: usuario.permissao,
             }
         });
