@@ -26,6 +26,10 @@ const Usuario = sequelize.define("Usuario", {
         type:DataTypes.STRING,
         allowNull: false,
     },
+    fotoUrl:{
+        type:DataTypes.STRING,
+        allowNull: true,
+    },
     ativo: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
